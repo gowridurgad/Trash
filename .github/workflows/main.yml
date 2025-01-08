@@ -20,6 +20,10 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-24.04
 
+    # Set environment variables
+    env:
+      DOTNET_INSTALL_DIR: "/home/runner/dotnet"
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - uses: actions/checkout@v3
@@ -44,13 +48,9 @@ jobs:
         dotnet --list-runtimes
         dotnet --list-sdks
         whereis dotnet
-    - name: Prep Dotnet
-      run: |
-        sudo mkdir /usr/share/dotnet
-        sudo chmod 777 /usr/share/dotnet
-   
+    
     - name: Install Dotnet
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v4.2.0
       with:
         dotnet-version: '8.0.x'
     - name: Test Dotnet
@@ -89,10 +89,10 @@ jobs:
     - name: Test Python
       run: |
         python --version
-    - name: Upgrade Pip.
+    - name: Upgrade Pip
       run: |
         python -m ensurepip --upgrade
-    - name: Test Pip.
+    - name: Test Pip
       run: |
         pip --version
     - name: Install Antlr tool
